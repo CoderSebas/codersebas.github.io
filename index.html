@@ -1,1 +1,399 @@
-Hello World
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Elena! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .danmaku-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .danmaku {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            animation: danmakuMove linear;
+            user-select: none;
+        }
+
+        @keyframes danmakuMove {
+            from {
+                transform: translateX(100vw);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .container {
+            max-width: 100%;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .greetings {
+            margin-bottom: 40px;
+        }
+
+        .greeting {
+            font-size: 1.8rem;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .greeting:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .greeting:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .greeting:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .emoji {
+            font-size: 2rem;
+            margin: 0 10px;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+            padding: 0 10px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            aspect-ratio: 1;
+            animation: scaleIn 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .photo-item:nth-child(1) {
+            animation-delay: 0.8s;
+        }
+
+        .photo-item:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .photo-item:nth-child(3) {
+            animation-delay: 1.2s;
+        }
+
+        .photo-item:nth-child(4) {
+            animation-delay: 1.4s;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .message {
+            margin-top: 40px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .signature {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .hearts {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .greeting {
+                font-size: 1.5rem;
+                padding: 12px;
+            }
+
+            .photo-gallery {
+                gap: 10px;
+                padding: 0 5px;
+            }
+
+            .message {
+                font-size: 1rem;
+                padding: 15px;
+            }
+
+            .danmaku {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
+
+            .signature {
+                font-size: 0.95rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎂 🎉 🎈</h1>
+        
+        <div class="greetings">
+            <div class="greeting">
+                <span class="emoji">🇮🇹</span>
+                Buon compleanno Elena!
+                <span class="emoji">🎂</span>
+            </div>
+            <div class="greeting">
+                <span class="emoji">🇨🇳</span>
+                Elena生日快乐！
+                <span class="emoji">🎉</span>
+            </div>
+            <div class="greeting">
+                <span class="emoji">🇬🇧</span>
+                Happy Birthday Elena!
+                <span class="emoji">🎈</span>
+            </div>
+        </div>
+
+        <div class="hearts">💖 💕 💖</div>
+
+        <div class="photo-gallery">
+            <div class="photo-item">
+                <img src="pictures/elena1.jpg" alt="Elena Photo 1">
+            </div>
+            <div class="photo-item">
+                <img src="pictures/elena2.jpg" alt="Elena Photo 2">
+            </div>
+            <div class="photo-item">
+                <img src="pictures/elena3.jpg" alt="Elena Photo 3">
+            </div>
+            <div class="photo-item">
+                <img src="pictures/elena4.jpg" alt="Elena Photo 4">
+            </div>
+        </div>
+
+        <div class="message">
+            <p>Happy Birthday, Elena! 🎂</p>
+            <p>May your every day be filled with sunshine and smiles 🌞</p>
+            <p>May all your dreams come true ✨</p>
+            <p>May your life always be filled with love and happiness 💝</p>
+            <p style="margin-top: 20px; font-weight: bold; font-size: 1.1rem;">
+                Although we are far apart, I will always be your friend in China, and I will remember you forever and ever. 
+                Distance cannot diminish the warmth of friendship, and time cannot fade the beautiful memories we share. 
+                You will always hold a special place in my heart. 💖
+            </p>
+        </div>
+
+        <div class="signature">
+            — Sebastian, 8109 kilometers away from you 🌍
+        </div>
+    </div>
+
+    <div class="danmaku-container" id="danmakuContainer"></div>
+
+    <script>
+        // 弹幕内容 - 三种语言
+        const danmakuMessages = [
+            // English
+            "Happy Birthday, Elena! 🎂",
+            "You're the most beautiful Italian girl I've ever met! 💖",
+            "We all love you! ❤️",
+            "Warm wishes from the other side of the world—may all go well, and worries fade away! 🌍",
+            "Happy Birthday to Elena! 🎉",
+            "The prettiest Italian girl ever! ✨",
+            "We love you so much! 💕",
+            "May everything be perfect, and worries disappear! 🌟",
+            "Love from the other end of the earth! 🌏",
+            // Italian
+            "Buon compleanno, Elena! 🎂",
+            "Sei la ragazza italiana più bella che abbia mai incontrato! 💖",
+            "Ti vogliamo tutti bene! ❤️",
+            "Auguri calorosi dall'altra parte del mondo—che tutto vada bene e le preoccupazioni svaniscano! 🌍",
+            "Buon compleanno a Elena! 🎉",
+            "La ragazza italiana più bella di sempre! ✨",
+            "Ti vogliamo tanto bene! 💕",
+            "Che tutto sia perfetto e le preoccupazioni scompaiano! 🌟",
+            "Amore dall'altra parte della terra! 🌏",
+            // Chinese
+            "Elena生日快乐！🎂",
+            "你是我见过最美丽的意大利女孩！💖",
+            "我们都爱你！❤️",
+            "来自世界另一端的温暖祝福——愿一切顺利，烦恼消散！🌍",
+            "祝Elena生日快乐！🎉",
+            "最美丽的意大利女孩！✨",
+            "我们非常爱你！💕",
+            "愿一切完美，烦恼消失！🌟",
+            "来自地球另一端的爱！🌏"
+        ];
+
+        function createDanmaku() {
+            const container = document.getElementById('danmakuContainer');
+            const danmaku = document.createElement('div');
+            danmaku.className = 'danmaku';
+            
+            // 随机选择一条消息
+            const message = danmakuMessages[Math.floor(Math.random() * danmakuMessages.length)];
+            danmaku.textContent = message;
+            
+            // 随机垂直位置（避免遮挡主要内容，在屏幕上半部分）
+            const topPosition = Math.random() * 25 + 5; // 5% 到 30% 之间
+            danmaku.style.top = topPosition + '%';
+            
+            // 随机动画时长（8-15秒）
+            const duration = Math.random() * 7 + 8;
+            danmaku.style.animationDuration = duration + 's';
+            
+            container.appendChild(danmaku);
+            
+            // 动画结束后移除元素
+            setTimeout(() => {
+                danmaku.remove();
+            }, duration * 1000);
+        }
+
+        // 初始创建一些弹幕
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                createDanmaku();
+            }, i * 2000);
+        }
+
+        // 持续创建新弹幕
+        setInterval(() => {
+            createDanmaku();
+        }, 3000);
+    </script>
+</body>
+</html>
