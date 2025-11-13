@@ -218,6 +218,66 @@
             animation: fadeIn 2s ease-in;
         }
 
+        .video-container {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeIn 2.5s ease-in;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .music-control:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            background: rgba(255, 255, 255, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .music-control svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
         .hearts {
             font-size: 1.5rem;
             margin: 20px 0;
@@ -261,6 +321,23 @@
             .signature {
                 font-size: 0.95rem;
                 padding: 12px;
+            }
+
+            .video-container {
+                margin-top: 30px;
+                padding: 0 10px;
+            }
+
+            .music-control {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .music-control svg {
+                width: 25px;
+                height: 25px;
             }
         }
     </style>
@@ -319,6 +396,29 @@
         <div class="signature">
             — Sebastian, 8109 kilometers away from you 🌍
         </div>
+
+        <div class="video-container">
+            <video controls playsinline>
+                <source src="videos/videoElena.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- 背景音乐 -->
+    <audio id="backgroundMusic" loop>
+        <source src="music/music_elena.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- 音乐控制按钮 -->
+    <div class="music-control" id="musicControl" title="Play/Pause Music">
+        <svg id="playIcon" viewBox="0 0 24 24" style="display: block;">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none;">
+            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+        </svg>
     </div>
 
     <div class="danmaku-container" id="danmakuContainer"></div>
@@ -394,6 +494,77 @@
         setInterval(() => {
             createDanmaku();
         }, 3000);
+
+        // 背景音乐控制
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicControl = document.getElementById('musicControl');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        let isPlaying = false;
+
+        // 尝试自动播放音乐（可能需要用户交互）
+        function tryPlayMusic() {
+            const playPromise = backgroundMusic.play();
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        isPlaying = true;
+                        updateMusicButton();
+                    })
+                    .catch(() => {
+                        // 自动播放被阻止，等待用户点击
+                        isPlaying = false;
+                        updateMusicButton();
+                    });
+            }
+        }
+
+        // 更新音乐按钮状态
+        function updateMusicButton() {
+            if (isPlaying) {
+                musicControl.classList.add('playing');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                musicControl.classList.remove('playing');
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+        }
+
+        // 点击音乐控制按钮
+        musicControl.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                isPlaying = false;
+            } else {
+                backgroundMusic.play();
+                isPlaying = true;
+            }
+            updateMusicButton();
+        });
+
+        // 页面加载后尝试播放音乐
+        window.addEventListener('load', () => {
+            // 延迟一下再尝试播放，给页面一些加载时间
+            setTimeout(tryPlayMusic, 500);
+        });
+
+        // 用户第一次交互时尝试播放音乐
+        let userInteracted = false;
+        document.addEventListener('click', () => {
+            if (!userInteracted && !isPlaying) {
+                userInteracted = true;
+                tryPlayMusic();
+            }
+        }, { once: true });
+
+        document.addEventListener('touchstart', () => {
+            if (!userInteracted && !isPlaying) {
+                userInteracted = true;
+                tryPlayMusic();
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
