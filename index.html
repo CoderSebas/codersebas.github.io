@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>王帅 | AI 应用开发与端侧智能</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero-section" aria-labelledby="profile-title">
+        <div class="profile-panel">
+          <div class="avatar-frame">
+            <img src="assets/avatar.jpg" alt="王帅头像" />
+          </div>
+          <div class="profile-copy">
+            <p class="eyebrow">Capital Normal University · CS Master 2027</p>
+            <h1 id="profile-title">王帅</h1>
+            <p class="intro">
+              一名关注 AI应用开发、TinyDL与边缘端AI部署 的硕士研究生，正在把大模型应用和端侧智能系统结合到真实项目中。
+            </p>
+            <div class="tag-row" aria-label="关注方向">
+              <span>AI Agent</span>
+              <span>LLM 应用开发</span>
+              <span>TinyDL</span>
+              <span>边缘端 AI</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="status-panel" aria-label="当前状态">
+          <div>
+            <span class="status-label">当前身份</span>
+            <strong>首都师范大学 2027 届计算机硕士</strong>
+          </div>
+          <div>
+            <span class="status-label">个人定位</span>
+            <strong>软硬协同型 AI 开发者</strong>
+          </div>
+          <div>
+            <span class="status-label">近期重心</span>
+            <strong>秋招项目 · 硕士论文 · 端侧部署优化</strong>
+          </div>
+        </aside>
+      </section>
+
+      <section class="content-grid">
+        <section class="info-section" aria-labelledby="info-title">
+          <div class="section-heading">
+            <p class="eyebrow">Profile</p>
+            <h2 id="info-title">个人信息</h2>
+          </div>
+
+          <div class="info-list">
+            <article class="info-item">
+              <span>我现在主要在做</span>
+              <p>
+                准备秋招，推进 AI 应用开发方向项目，包括刚完成的 MiniClaudeCode，以及接下来计划推进的 AI 应用开发项目。
+              </p>
+            </article>
+            <article class="info-item">
+              <span>研究方向</span>
+              <p>
+                继续推进硕士论文方向，包括已投稿的 AdaMoE-Tiny，以及正在撰写的 ECG Transformer 端侧部署优化工作。
+              </p>
+            </article>
+            <article class="info-item">
+              <span>兴趣关键词</span>
+              <p>AI Agent / LLM 应用开发，嵌入式 AI / TinyDL，开源，Coding，篮球，英语。</p>
+            </article>
+            <article class="info-item">
+              <span>适合交流</span>
+              <p>秋招机会、AI 应用开发、端侧智能部署、科研合作、开源项目共建。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="chat-section" aria-labelledby="chat-title">
+          <div class="chat-header">
+            <div>
+              <p class="eyebrow">Digital Twin</p>
+              <h2 id="chat-title">问问数字分身</h2>
+            </div>
+            <span class="online-dot">在线</span>
+          </div>
+
+          <div class="quick-questions" aria-label="快捷问题">
+            <button type="button" data-question="你现在在做什么？">你现在在做什么？</button>
+            <button type="button" data-question="你有哪些作品？">你有哪些作品？</button>
+            <button type="button" data-question="怎么联系你？">怎么联系你？</button>
+          </div>
+
+          <div class="chat-window" id="chatWindow" aria-live="polite">
+            <div class="message bot">
+              <span>王帅的数字分身</span>
+              <p>你好，我是王帅的数字分身。想了解他的近期项目、研究方向或联系方式，都可以直接问我。</p>
+            </div>
+          </div>
+
+          <form class="chat-form" id="chatForm">
+            <label class="sr-only" for="chatInput">输入问题</label>
+            <input id="chatInput" type="text" placeholder="输入你想了解的问题..." autocomplete="off" />
+            <button type="submit">发送</button>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
