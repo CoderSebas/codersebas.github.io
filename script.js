@@ -90,15 +90,50 @@ function isOffTopic(text) {
   return includesAny(text, offTopicKeywords);
 }
 
-function submitQuestion(question) {
+async function askLLM(question) {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
+  let response;
+
+  try {
+    response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: question }),
+      signal: controller.signal,
+    });
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+
+  if (!response.ok) {
+    throw new Error("LLM request failed");
+  }
+
+  const data = await response.json();
+
+  if (!data.reply) {
+    throw new Error("LLM returned empty reply");
+  }
+
+  return data.reply;
+}
+
+async function submitQuestion(question) {
   if (!question.trim()) return;
 
   addMessage("user", question);
   chatInput.value = "";
 
-  window.setTimeout(() => {
+  try {
+    const reply = await askLLM(question);
+    addMessage("bot", reply);
+  } catch (error) {
     addMessage("bot", getReply(question));
-  }, 260);
+  }
 }
 
 chatForm.addEventListener("submit", (event) => {
