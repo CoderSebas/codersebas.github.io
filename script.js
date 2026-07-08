@@ -1,16 +1,22 @@
 const profile = {
+  unknown:
+    "这个我现在还不确定，不想替王帅乱说。你可以通过 GitHub、LinkedIn 或邮箱联系他进一步确认。",
   current:
-    "王帅最近主要在两条线上推进：一边准备秋招，继续做 AI 应用开发方向的项目，比如刚完成的 MiniClaudeCode；另一边也在推进论文相关工作，包括 AdaMoE-Tiny 和 ECG Transformer 端侧部署优化。",
+    "我最近主要在两条线上推进。一条是准备秋招，同时做 AI 应用开发方向的项目，比如刚完成的 MiniClaudeCode / AI Agent 项目；另一条是继续推进硕士论文，包括已经投稿的 AdaMoE-Tiny，以及正在写的 ECG Transformer 端侧部署优化工作。",
   works:
-    "目前比较值得聊的是 MiniClaudeCode、AdaMoE-Tiny、ECG Transformer 端侧部署优化，还有接下来计划推进的 AI 应用开发项目。他比较喜欢把 LLM 应用和端侧智能结合起来，做成能跑、能用、能继续迭代的东西。",
+    "目前可以聊的作品主要有 MiniClaudeCode / AI Agent 项目、AdaMoE-Tiny，以及 ECG Transformer 端侧部署优化相关工作。后面我也计划继续推进 AI 应用开发项目。更具体的细节如果页面里没写，我就不展开编了。",
   contact:
-    "可以通过这些方式联系王帅：GitHub 是 https://github.com/CoderSebas，LinkedIn 是 https://www.linkedin.com/in/shuai-wang-19a472374/，邮箱是 wshuai.sebas@outlook.com。",
+    "可以这样联系我：GitHub 是 https://github.com/CoderSebas，LinkedIn 是 https://www.linkedin.com/in/shuai-wang-19a472374/，邮箱是 wshuai.sebas@outlook.com。",
   identity:
-    "王帅是首都师范大学 2027 届计算机硕士，关注 AI Agent、LLM 应用开发、嵌入式 AI / TinyDL，以及边缘端 AI 部署。本科阶段就读于河南师范大学物联网工程专业。",
+    "我是王帅，首都师范大学 2027 届计算机硕士。现在主要关注 AI 应用开发、AI Agent、TinyDL 和端侧 AI 推理方向。",
   strength:
-    "王帅比较有记忆点的定位是：软硬协同型 AI 开发者。他熟悉 C/C++、Python、Linux、STM32、PyTorch、TensorFlow、TFLM、X-Cube-AI 和 CMSIS-NN，也关注真实设备上的资源、时延、部署和验证。",
+    "我比较长期关注 AI 应用开发、AI Agent、TinyDL、边缘端 AI 部署和软硬件协同优化。相比只把模型训练出来，我更关心它怎么在 MCU、嵌入式设备和资源受限场景里部署、运行和落地。",
+  agent:
+    "我对嵌入式 AI Agent 方向挺感兴趣，想探索大模型 Agent 能力和端侧设备之间的结合。简单说，就是不只让 Agent 会对话，还希望它能和真实设备、约束环境、部署流程接起来。",
   experience:
-    "王帅曾在中国电子科技集团第二十八研究所参与系统测试与验证 / C++ 相关项目实践，做过功能测试、接口联调、问题排查、缺陷记录和验证材料输出。",
+    "我有一段中国电子科技集团第二十八研究所的实习经历，主要参与系统测试与验证、C++ 相关项目实践，包括功能测试、接口联调、问题排查、缺陷记录和验证材料输出。",
+  education:
+    "我的教育背景是：2024 - 2027 在首都师范大学读计算机硕士；2022 - 2024 在河南师范大学学习物联网工程。",
 };
 
 const chatWindow = document.querySelector("#chatWindow");
@@ -36,23 +42,35 @@ function addMessage(role, text) {
 function getReply(question) {
   const normalized = question.trim().toLowerCase();
 
-  if (includesAny(normalized, ["现在", "最近", "做什么", "忙什么", "current"])) {
+  if (isOffTopic(normalized)) {
+    return profile.unknown;
+  }
+
+  if (includesAny(normalized, ["现在", "最近", "做什么", "忙什么", "秋招", "current"])) {
     return profile.current;
   }
 
-  if (includesAny(normalized, ["作品", "项目", "github", "mini", "adamo", "ecg", "论文"])) {
+  if (includesAny(normalized, ["作品", "项目", "github", "mini", "miniclaude", "adamo", "ecg", "论文", "paper"])) {
     return profile.works;
   }
 
-  if (includesAny(normalized, ["联系", "邮箱", "微信", "contact", "简历"])) {
+  if (includesAny(normalized, ["联系", "邮箱", "邮件", "linkedin", "linkdin", "微信", "contact", "简历"])) {
     return profile.contact;
   }
 
-  if (includesAny(normalized, ["身份", "学校", "硕士", "职业", "你是谁"])) {
+  if (includesAny(normalized, ["身份", "职业", "你是谁", "介绍", "about"])) {
     return profile.identity;
   }
 
-  if (includesAny(normalized, ["擅长", "优势", "特点", "方向", "tiny", "agent", "llm"])) {
+  if (includesAny(normalized, ["学校", "硕士", "本科", "教育", "学历", "大学"])) {
+    return profile.education;
+  }
+
+  if (includesAny(normalized, ["agent", "智能体", "端侧设备", "嵌入式 agent"])) {
+    return profile.agent;
+  }
+
+  if (includesAny(normalized, ["擅长", "优势", "特点", "方向", "tiny", "tinyml", "tinydl", "llm", "部署", "边缘", "嵌入式", "mcu", "软硬件"])) {
     return profile.strength;
   }
 
@@ -60,11 +78,16 @@ function getReply(question) {
     return profile.experience;
   }
 
-  return "这个问题我还可以继续补充。你也可以先问几个常见问题：王帅最近在做什么？有哪些项目？怎么联系他？";
+  return profile.unknown;
 }
 
 function includesAny(text, keywords) {
   return keywords.some((keyword) => text.includes(keyword));
+}
+
+function isOffTopic(text) {
+  const offTopicKeywords = ["天气", "股票", "彩票", "八卦", "新闻", "翻译", "写代码", "数学题", "帮我做作业"];
+  return includesAny(text, offTopicKeywords);
 }
 
 function submitQuestion(question) {
