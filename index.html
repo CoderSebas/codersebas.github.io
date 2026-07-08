@@ -99,14 +99,61 @@
             <h2 id="about-title">最近在折腾什么</h2>
           </div>
         </div>
-        <div class="about-flow">
-          <p>我最近在把 AI 应用开发和端侧智能两条线往一起收。</p>
-          <p>
-            一边准备秋招，继续打磨 MiniClaudeCode 和新的 AI 应用项目；一边推进 AdaMoE-Tiny、
-            ECG Transformer 端侧部署优化这些论文相关工作。
-          </p>
-          <p>我更关心的是：一个 AI 系统在真实硬件约束里，怎样仍然跑得起来、讲得清楚、值得交付。</p>
+        <div class="activity-list" id="activityList">
+          <article class="activity-item">
+            <time datetime="2026-07">2026.7</time>
+            <div>
+              <h3>MiniClawCode 编程智能体上线</h3>
+              <p><span class="activity-icon">🤖</span>完成一个类 Claude Code 的编程智能体项目，支持工具调用、任务规划、上下文管理和多轮交互。</p>
+            </div>
+          </article>
+          <article class="activity-item">
+            <time datetime="2026-05">2026.5</time>
+            <div>
+              <h3>论文投稿 SEC</h3>
+              <p><span class="activity-icon">📄</span>第一篇论文完成投稿，工作围绕 TinyDL 与端侧 AI 部署优化展开，目前等待评审结果中。</p>
+            </div>
+          </article>
+          <article class="activity-item">
+            <time datetime="2025-07">2025.7</time>
+            <div>
+              <h3>中意先进制造暑期学校</h3>
+              <p><span class="activity-icon">🇨🇳🇮🇹</span>很开心能够被选中为中方学生代表之一，参与先进制造与智能技术相关交流学习。</p>
+            </div>
+          </article>
+          <article class="activity-item is-extra">
+            <time datetime="2025-05">2025.5</time>
+            <div>
+              <h3>中国电子科技集团第 28 研究所实习</h3>
+              <p><span class="activity-icon">🏢</span>很高兴能够在中国电科第 28 研究所实习，接触真实科研与工程环境。</p>
+            </div>
+          </article>
+          <article class="activity-item is-extra">
+            <time datetime="2025-02">2025.2</time>
+            <div>
+              <h3>基于 STM32 的智能可穿戴心电分析系统</h3>
+              <p><span class="activity-icon">❤️</span>在 STM32 端侧设备上实现心电分类模型本地运行，探索 TinyDL 在可穿戴健康场景中的应用。</p>
+            </div>
+          </article>
+          <article class="activity-item is-extra">
+            <time datetime="2024-09">2024.9</time>
+            <div>
+              <h3>考研上岸首都师范大学</h3>
+              <p><span class="activity-icon">🎓</span>进入首都师范大学攻读计算机学术型硕士，继续深入学习 AI、嵌入式系统与边缘智能方向。</p>
+            </div>
+          </article>
+          <article class="activity-item is-extra">
+            <time datetime="2024-07">2024.7</time>
+            <div>
+              <h3>本科毕业于河南师范大学</h3>
+              <p><span class="activity-icon">🌱</span>获得河南师范大学学士学位，感谢并祝福所有老师和同学。</p>
+            </div>
+          </article>
         </div>
+        <button class="activity-toggle" type="button" aria-expanded="false" aria-controls="activityList">
+          <span class="activity-toggle-icon">⌄</span>
+          <span class="activity-toggle-label">显示全部</span>
+        </button>
       </section>
 
       <section class="section-card" aria-labelledby="skills-title">

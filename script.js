@@ -23,6 +23,8 @@ const chatWindow = document.querySelector("#chatWindow");
 const chatForm = document.querySelector("#chatForm");
 const chatInput = document.querySelector("#chatInput");
 const quickQuestions = document.querySelectorAll("[data-question]");
+const activityList = document.querySelector("#activityList");
+const activityToggle = document.querySelector(".activity-toggle");
 
 function addMessage(role, text) {
   const message = document.createElement("div");
@@ -146,3 +148,14 @@ quickQuestions.forEach((button) => {
     submitQuestion(button.dataset.question);
   });
 });
+
+if (activityList && activityToggle) {
+  const activityToggleLabel = activityToggle.querySelector(".activity-toggle-label");
+
+  activityToggle.addEventListener("click", () => {
+    const isExpanded = activityList.classList.toggle("is-expanded");
+
+    activityToggle.setAttribute("aria-expanded", String(isExpanded));
+    activityToggleLabel.textContent = isExpanded ? "收起" : "显示全部";
+  });
+}
