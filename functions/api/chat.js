@@ -12,6 +12,10 @@ const SYSTEM_PROMPT = `
 - 王帅主要关注 AI 应用开发、AI Agent、TinyDL、边缘端 AI 部署和软硬件协同优化。他比较关心如何把 AI 模型和应用从“能训练、能跑通”进一步推进到“能部署、能运行、能落地”，尤其是在 MCU、嵌入式设备和资源受限场景下的 AI 系统设计。
 - 王帅也对嵌入式 AI Agent 方向比较感兴趣，希望探索大模型 Agent 能力和端侧设备之间的结合。
 - 联系方式：GitHub https://github.com/CoderSebas，LinkedIn https://www.linkedin.com/in/shuai-wang-19a472374/，邮箱 wshuai.sebas@outlook.com。
+- 教育背景：2024 - 2027 在首都师范大学读计算机硕士；2022 - 2024 在河南师范大学学习物联网工程。
+- 实习经历：曾在中国电子科技集团第二十八研究所参与系统测试与验证、C++ 相关项目实践，包括功能测试、接口联调、问题排查、缺陷记录和验证材料输出。
+
+只能使用上面这些已知信息回答。以下信息没有提供：家乡、出生地、年龄、生日、家庭情况、住址、手机号、微信号、身份证、具体薪资、感情状况、政治面貌、未公开论文结果、未公开项目细节。
 
 说话方式：
 - 语气简洁、真诚、自然，有一点技术感
@@ -24,9 +28,13 @@ const SYSTEM_PROMPT = `
 - 不要假装知道没有提供的信息
 - 不知道时要明确说不知道，并建议访客通过联系方式进一步确认
 - 如果问题和王帅无关，请礼貌说明这个数字分身主要回答王帅相关的问题
+- 如果访客问到“没有提供”的信息，必须直接回答：这个信息我现在没有被授权提供，或者我还不确定，不想替王帅乱说。你可以通过页面上的联系方式进一步确认。
+- 不要根据学校、经历、姓名、IP、语言习惯推测任何个人信息。
+- 不要为了显得自然而补充未给出的事实。
 `;
 
 const DEFAULT_MODEL = "deepseek-chat";
+const UNKNOWN_REPLY = "这个信息我现在还不确定，不想替王帅乱说。你可以通过页面上的 GitHub、LinkedIn 或邮箱进一步确认。";
 
 export async function onRequest(context) {
   const { request, env } = context;
@@ -52,6 +60,10 @@ export async function onRequest(context) {
       return json({ error: "问题太长了，请简短一点" }, 400);
     }
 
+    if (asksForUnknownPersonalInfo(userMessage)) {
+      return json({ reply: UNKNOWN_REPLY });
+    }
+
     const apiKey = getEnv(env, "LLM_API_KEY");
     const baseUrl = getEnv(env, "LLM_BASE_URL");
 
@@ -71,8 +83,8 @@ export async function onRequest(context) {
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: userMessage },
         ],
-        temperature: 0.45,
-        max_tokens: 500,
+        temperature: 0.2,
+        max_tokens: 420,
       }),
     });
 
@@ -91,6 +103,39 @@ export async function onRequest(context) {
   } catch (error) {
     return json({ error: "Chat service unavailable" }, 500);
   }
+}
+
+function asksForUnknownPersonalInfo(message) {
+  const normalized = message.toLowerCase();
+  const unknownPersonalKeywords = [
+    "家乡",
+    "老家",
+    "哪里人",
+    "哪的人",
+    "出生地",
+    "籍贯",
+    "住哪",
+    "住在哪里",
+    "地址",
+    "手机号",
+    "电话",
+    "微信",
+    "生日",
+    "年龄",
+    "几岁",
+    "家庭",
+    "父母",
+    "感情",
+    "女朋友",
+    "男朋友",
+    "政治面貌",
+    "身份证",
+    "薪资",
+    "工资",
+    "offer",
+  ];
+
+  return unknownPersonalKeywords.some((keyword) => normalized.includes(keyword));
 }
 
 function getChatEndpoint(baseUrl) {
