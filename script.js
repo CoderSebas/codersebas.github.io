@@ -25,6 +25,7 @@ const chatInput = document.querySelector("#chatInput");
 const quickQuestions = document.querySelectorAll("[data-question]");
 const activityList = document.querySelector("#activityList");
 const activityToggle = document.querySelector(".activity-toggle");
+const workToggle = document.querySelector(".work-toggle");
 
 function addMessage(role, text) {
   const message = document.createElement("div");
@@ -157,5 +158,14 @@ if (activityList && activityToggle) {
 
     activityToggle.setAttribute("aria-expanded", String(isExpanded));
     activityToggleLabel.textContent = isExpanded ? "收起" : "显示全部";
+  });
+}
+
+if (workToggle) {
+  workToggle.addEventListener("click", () => {
+    const workItem = workToggle.closest(".work-item");
+    const isExpanded = workItem.classList.toggle("is-expanded");
+
+    workToggle.setAttribute("aria-expanded", String(isExpanded));
   });
 }
